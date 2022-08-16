@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mcube</groupId>
-    <artifactId>log4jBridge</artifactId>
+    <artifactId>mcube-log4j-1.2.17-mp</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -28,6 +28,27 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>org.apache.log4j</name>
+                                <manifestEntries>
+                                    <DynamicImport-Package>*</DynamicImport-Package>
+                                    <Implementation-Title>log4j</Implementation-Title>
+                                    <Implementation-Version>${project.version}</Implementation-Version>
+                                    <Implementation-Vendor>"Apache Software Foundation"</Implementation-Vendor>
+                                    <Built-By>mcube</Built-By>
+                                    <Bundle-Vendor>mcube</Bundle-Vendor>
+                                    <Bundle-Description>Apache Log4j 1.2</Bundle-Description>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -37,9 +58,27 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <finalName>${project.artifactId}-${project.version}</finalName>
+                            <archive>
+                                <manifestSections>
+                                    <manifestSection>
+                                        <name>org.apache.log4j</name>
+                                        <manifestEntries>
+                                            <DynamicImport-Package>*</DynamicImport-Package>
+                                            <Implementation-Title>log4j</Implementation-Title>
+                                            <Implementation-Version>${project.version}</Implementation-Version>
+                                            <Implementation-Vendor>"Apache Software Foundation"</Implementation-Vendor>
+                                            <Built-By>mcube</Built-By>
+                                            <Bundle-Vendor>mcube</Bundle-Vendor>
+                                            <Bundle-Description>Apache Log4j 1.2</Bundle-Description>
+                                        </manifestEntries>
+                                    </manifestSection>
+                                </manifestSections>
+                            </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
